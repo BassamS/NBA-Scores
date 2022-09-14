@@ -7,5 +7,7 @@ ALL_JSON = '/prod/v1/today.json'
 printer = PrettyPrinter()
 
 data = get(BASE_URL + ALL_JSON).json()
+links = data['links']
+scoreboard = links['currentScoreboard']
 
-printer.pprint(data)
+printer.pprint(scoreboard)
