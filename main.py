@@ -15,9 +15,25 @@ def get_links():
 
 def get_scoreboard():
     scoreboard = get_links()['currentScoreboard']
-    data = get(BASE_URL + scoreboard).json()
+    games = get(BASE_URL + scoreboard).json()['games']
 
-    printer.pprint(data.keys())
+    for game in games:
+        home_team = game['hTeam']
+        away_team = game['vTeam']
+        clock = game['clock']
+        period = game['period']
+
+        print('----------------------------------------------------')
+        print(f"{home_team['triCode']} vs {away_team['triCode']}")
+        print(f"{home_team['score']} - {away_team['score']}")
+        print(f"{clock} - {period['current']}")
 
 
-get_scoreboard()
+def get_stats():
+    stats = get_links()['leagueTeamStatsLeaders']
+    data = get(BASE_URL + stats).json()
+
+    printer.pprint(data.keys)
+
+
+get_stats()
